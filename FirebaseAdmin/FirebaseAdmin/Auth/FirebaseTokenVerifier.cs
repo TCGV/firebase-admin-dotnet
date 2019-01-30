@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -41,7 +40,7 @@ namespace FirebaseAdmin.Auth
         private const string Sha256Oid = "2.16.840.1.101.3.4.2.1";
 
         private static readonly IReadOnlyList<string> StandardClaims =
-            ImmutableList.Create<string>("iss", "aud", "exp", "iat", "sub", "uid");
+            new List<string> { "iss", "aud", "exp", "iat", "sub", "uid" };
 
         public string ProjectId { get; }
         private readonly string _shortName;
@@ -154,7 +153,7 @@ namespace FirebaseAdmin.Auth
             {
                 allClaims.Remove(claim);
             }
-            payload.Claims = allClaims.ToImmutableDictionary();
+            payload.Claims = allClaims.ToDictionary(x => x.Key, x => x.Value);
             return new FirebaseToken(payload);
         }
 

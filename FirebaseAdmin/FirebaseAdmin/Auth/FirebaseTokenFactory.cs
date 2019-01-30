@@ -14,7 +14,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;  
@@ -43,10 +43,10 @@ namespace FirebaseAdmin.Auth
         public const int TokenDurationSeconds = 3600;
         public static readonly DateTime UnixEpoch = new DateTime(
             1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        public static readonly ImmutableList<string> ReservedClaims = ImmutableList.Create(
+        public static readonly IReadOnlyCollection<string> ReservedClaims = new List<string> {
             "acr", "amr", "at_hash", "aud", "auth_time", "azp", "cnf", "c_hash",
 	        "exp", "firebase", "iat", "iss", "jti", "nbf", "nonce", "sub"
-        );
+        };
 
         private readonly ISigner _signer;
         private readonly IClock _clock;

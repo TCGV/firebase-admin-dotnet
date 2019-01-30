@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Google;
@@ -42,7 +41,7 @@ namespace FirebaseAdmin
     {
         private const string DefaultAppName = "[DEFAULT]";
 
-        internal static readonly IReadOnlyList<string> DefaultScopes = ImmutableList.Create(
+        internal static readonly IReadOnlyList<string> DefaultScopes = new List<string> {
             // Enables access to Firebase Realtime Database.
             "https://www.googleapis.com/auth/firebase",
 
@@ -58,7 +57,7 @@ namespace FirebaseAdmin
             // Enables access to Google Cloud Firestore
             "https://www.googleapis.com/auth/cloud-platform",
             "https://www.googleapis.com/auth/datastore"
-        );
+        };
 
         private static readonly Dictionary<string, FirebaseApp> Apps = new Dictionary<string, FirebaseApp>();
 

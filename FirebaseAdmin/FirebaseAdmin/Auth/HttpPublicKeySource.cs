@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -112,7 +111,7 @@ namespace FirebaseAdmin.Auth
             {
                 throw new InvalidDataException("No public keys present in the response.");
             }
-            var builder = ImmutableList.CreateBuilder<PublicKey>();
+            var list = new List<PublicKey>();
             foreach (var entry in rawKeys)
             {
                 var x509cert = new X509Certificate2(Encoding.UTF8.GetBytes(entry.Value));
@@ -124,9 +123,9 @@ namespace FirebaseAdmin.Auth
 #else
 #error Unsupported target
 #endif
-                builder.Add(new PublicKey(entry.Key, rsa));
+                list.Add(new PublicKey(entry.Key, rsa));
             }
-            return builder.ToImmutableList();
+            return list;
         }
     }
 }
